@@ -55,7 +55,7 @@
    customView.setImage(R.drawable.demoimage)
 ```    
 ### Gif ###
-![Alt Text] (/app/screenshot/demo.gif)
+![Demo Gif](/app/screenshot/demo.gif)
 ### Links ###
 * [Arivista ](https://www.arivistadigital.org/ "Arivista ")
 
