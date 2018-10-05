@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#1f1b49</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="header">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#C7C6D4</color>
+    <color name="titlecolor">#00a29c</color>
+    <color name="white">#ffffff</color>
+    <color name="dashboard_bg">#332f60</color>
+    <color name="tab_bg">#002E92</color>
+    <color name="dimBg">#bf000000</color>
+    <color name="grey200">#cecece</color>
+    <color name="highlight">#00A19A</color>
+    <color name="tab_grey">#C7C6D4</color>
+    <color name="bottom_menu">#54507c</color>
+
+    <!-- card colors -->
+    <color name="card_background">#ffffff</color>
+    <color name="card_shadow_1">#d4d4d4</color>
+    <color name="card_shadow_2">#dddddd</color>
+    <color name="card_detailing">#eee</color>
+    <color name="tab_black">#2E2D2D</color>
+    <color name="tab_black_highlight">#2E2D2D</color>
+    <color name="transparent">#00000000</color>
+    <color name="alpha">#80000000</color>
+    <color name="buttonbg">#A9A7BE</color>
+    <color name="tab_bg_highlight">#80FFFFFF</color>
+    <color name="grey_light">#f4f4f6</color>
+    <color name="indicator_unselected">#4D000000</color>
+    <color name="orange">#c58d32</color>
+    <color name="voilet">#85509c</color>
+    <color name="dark_voilet">#29235c</color>
+    <color name="dark_grey">#9E9E9E</color>
+    <color name="puple">#29235c</color>
+    <color name="ddreveal">#149b5f</color>
+    <color name="color_background">#4b4b4b</color>
+    <color name="disabled">#d6d6d6</color>
+    <color name="hint_color">#808080</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="certificate_hilidte">#a2185b</color>
+
+</resources>

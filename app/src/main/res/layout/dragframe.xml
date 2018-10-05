@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/frameInter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layoutHeader">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_flexBasisPercent="75%">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexDirection="column"
+                >
+
+                <AbsoluteLayout
+                    android:id="@+id/c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitStart"
+                       />
+
+                </AbsoluteLayout>
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal"
+
+                    app:justifyContent="center"
+                    app:layout_alignSelf="center">
+
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:enabled="false"
+                        android:layout_marginRight="16dp"
+                        android:text="submit"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:id="@+id/btnReveal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="reveal"
+                        android:textStyle="bold"/>
+
+                    <Button
+                        android:id="@+id/btnReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:enabled="false"
+                        android:paddingRight="16dp"
+                        android:layout_weight="1"
+                        android:text="reset"
+                        android:textStyle="bold"/>
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
+        </ScrollView>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:dividerHeight="8dp"
+            android:divider="@color/white"
+            android:textAlignment="center"
+            app:layout_flexBasisPercent="25%"/>
+    </com.google.android.flexbox.FlexboxLayout>
+
+</LinearLayout>
