@@ -22,7 +22,27 @@
 * Reveal Answer
 
 ### How to use ###
+### Project level import ###
 
+* build.gradle
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ ```
+### Module level import ###
+
+* build.gradle
+```
+dependencies {
+
+     implementation 'com.github.arivista-digital:drag-drop:V1_0'
+     
+	}
+ ```
  * activity_main Layout initialize
 ```
     <arivista.lib.dragdrop.CustomView
@@ -31,7 +51,7 @@
         android:layout_height="match_parent">
     </arivista.lib.dragdrop.CustomView>
 ```
-* MainActivity Funtionalites
+### MainActivity Funtionalites ###
 
 * Custom view object creation
 ```
@@ -55,7 +75,7 @@
    customView.setImage(R.drawable.demoimage)
 ```    
 ### Gif ###
-![Alt Text] (/app/screenshot/demo.gif)
+![Alt Text](/app/screenshot/demo.gif)
 ### Links ###
 * [Arivista ](https://www.arivistadigital.org/ "Arivista ")
 
