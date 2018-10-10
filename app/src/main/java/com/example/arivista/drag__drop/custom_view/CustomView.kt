@@ -5,17 +5,14 @@ import android.content.ClipData
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
+import android.os.Build
 import android.util.AttributeSet
-import android.view.DragEvent
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.*
 
 
-class CustomView : LinearLayout, View.OnDragListener {
+class CustomView : LinearLayout {
     var options = ArrayList<Optionmodel>()
-    var imageResource: Int? = null
     var optionscopy = ArrayList<Optionmodel>()
     var image: ImageView? = null
     var context1: Context? = null
@@ -105,42 +102,126 @@ class CustomView : LinearLayout, View.OnDragListener {
         }
     }
 
-    fun setImage(image: Int) {
-        imageResource = image
-
-    }
 
     @SuppressLint("InflateParams", "ClickableViewAccessibility")
-    fun setInput(value: ArrayList<Optionmodel>) {
+    fun setInput(value: ArrayList<Optionmodel>, demoimage: Int) {
         setValue(value)
-        val observer = mainholder!!.getViewTreeObserver()
-        observer.addOnGlobalLayoutListener {
-            val headerLayoutWidth = mainholder!!.getWidth()
-            val r: Double
-            val a = 500
-            val b = 500
-            val p: Double
-            r = (a / b).toDouble()
-            p = (height / a).toDouble()
-            val height = (headerLayoutWidth * r).toInt()
-            scalevalue = p
-            val param1 = AbsoluteLayout.LayoutParams(headerLayoutWidth, height, 0, 0)
-            image!!.layoutParams = param1
-            image!!.setBackgroundResource(this.imageResource!!)
-        }
-        for ((i, obj) in value.withIndex()) {
-            val view = LayoutInflater.from(context).inflate(R.layout.draggablelayout, null, false)
-            val contactUs = view.findViewById<TextView>(R.id.option)
-            view.setBackgroundResource(R.drawable.rect_bg)
-            contactUs.tag = obj.name
-            view.setOnDragListener(this)
-            val param = AbsoluteLayout.LayoutParams(obj.width!!, obj.height!!, obj.x!!, obj.y!!)
-            view.setLayoutParams(param)
-            if (mainholder != null) {
-                mainholder!!.addView(view)
-            }
-            contactUs.setOnTouchListener(ChoiceTouchListener(i))
-        }
+        image!!.setBackgroundResource(demoimage)
+        mainholder!!.viewTreeObserver.addOnGlobalLayoutListener(
+
+                object : ViewTreeObserver.OnGlobalLayoutListener, OnDragListener {
+
+                    //DragListener
+                    override fun onDrag(v: View, event: DragEvent): Boolean {
+                        val action = event.action
+                        when (action) {
+                            DragEvent.ACTION_DRAG_STARTED -> {
+                            }
+                            DragEvent.ACTION_DRAG_ENTERED -> {
+                                (v.findViewById(R.id.option) as TextView)
+                                        .setBackgroundColor(
+                                                resources
+                                                        .getColor(R.color.colorAccent))
+                                (v.findViewById(R.id.option) as TextView)
+                                        .setTextColor(
+                                                resources
+                                                        .getColor(R.color.black))
+                                v.invalidate()
+                            }
+                            DragEvent.ACTION_DRAG_EXITED -> {
+
+                                if ((v.findViewById(R.id.option) as TextView).text.toString().isEmpty()) {
+
+                                    (v.findViewById(R.id.option) as TextView)
+                                            .setBackgroundColor(
+                                                    resources
+                                                            .getColor(android.R.color.transparent))
+                                } else {
+                                    (v.findViewById(R.id.option) as TextView)
+                                            .setBackgroundColor(
+                                                    resources
+                                                            .getColor(R.color.highlighted_text_material_dark))
+                                }
+
+                                v.visibility = View.VISIBLE
+                            }
+                            DragEvent.ACTION_DROP -> {
+                                val dropTarget = v.findViewById(R.id.option) as TextView
+                                val text = dropTarget.text
+                                if (text != "") options.add(Optionmodel(dropTarget.text.toString(), 0, 0, 0, 0))
+                                dropTarget.text = optionmodel!!.name
+                                options.remove(optionmodel!!)
+                                if (optionlistView != null) {
+                                    optionlistView!!.adapter = OptionAdapter(options)
+
+                                }
+                                (v.findViewById(R.id.option) as TextView)
+                                        .setBackgroundColor(
+                                                resources
+                                                        .getColor(R.color.highlighted_text_material_dark))
+                                (v.findViewById(R.id.option) as TextView)
+                                        .setTextColor(
+                                                resources
+                                                        .getColor(R.color.primary_text_default_material_light))
+                                (v.findViewById(R.id.option) as TextView).text = (optionmodel!!.name)
+                                (v.findViewById(R.id.option) as TextView).visibility = View.VISIBLE
+                                if (options.size == 0) {
+                                    submit!!.isEnabled = true
+                                } else {
+                                    submit!!.isEnabled = false
+                                }
+
+                            }
+                            DragEvent.ACTION_DRAG_ENDED ->
+                                v.invalidate()
+                            else -> {
+                            }
+                        }
+                        return true
+                    }
+
+                    //Global layout
+                    override fun onGlobalLayout() {
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            mainholder!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        }
+
+                        val headerLayoutWidth = mainholder!!.getWidth()
+                        val r: Double
+                        val a = 276.18400000000003
+                        val b = 874
+                        val p: Double
+                        r = (a / b).toDouble()
+                        p = (height / a).toDouble()
+                        val height = (headerLayoutWidth * r).toInt()
+                        scalevalue = p
+                        val param1 = AbsoluteLayout.LayoutParams(headerLayoutWidth, height, 0, 0)
+                        var scaleHeight = height / a
+
+                        image!!.layoutParams = param1
+                        for ((i, obj) in value.withIndex()) {
+                            val view = LayoutInflater.from(context).inflate(R.layout.draggablelayout, null, false)
+                            val contactUs = view.findViewById<TextView>(R.id.option)
+                            view.setBackgroundResource(R.drawable.rect_bg)
+                            contactUs.tag = obj.name
+                            view.setOnDragListener(this)
+                            val param = AbsoluteLayout.LayoutParams(
+                                    (obj.width!! * scaleHeight).toInt(),
+                                    (obj.height!! * scaleHeight).toInt(),
+                                    (obj.x!! * scaleHeight).toInt(),
+                                    (obj.y!! * scaleHeight).toInt())
+                            view.setLayoutParams(param)
+                            if (mainholder != null) {
+                                mainholder!!.addView(view)
+                            }
+                            contactUs.setOnTouchListener(ChoiceTouchListener(i))
+
+                        }
+
+                    }
+                })
+
 
     }
 
@@ -235,74 +316,5 @@ class CustomView : LinearLayout, View.OnDragListener {
     }
 
 
-    //Drag and Drop action
-    @SuppressLint("PrivateResource")
-    override fun onDrag(v: View, event: DragEvent): Boolean {
-        val action = event.action
-        when (action) {
-            DragEvent.ACTION_DRAG_STARTED -> {
-            }
-            DragEvent.ACTION_DRAG_ENTERED -> {
-                (v.findViewById(R.id.option) as TextView)
-                        .setBackgroundColor(
-                                resources
-                                        .getColor(R.color.colorAccent))
-                (v.findViewById(R.id.option) as TextView)
-                        .setTextColor(
-                                resources
-                                        .getColor(R.color.black))
-                v.invalidate()
-            }
-            DragEvent.ACTION_DRAG_EXITED -> {
-
-                if ((v.findViewById(R.id.option) as TextView).text.toString().isEmpty()) {
-
-                    (v.findViewById(R.id.option) as TextView)
-                            .setBackgroundColor(
-                                    resources
-                                            .getColor(android.R.color.transparent))
-                } else {
-                    (v.findViewById(R.id.option) as TextView)
-                            .setBackgroundColor(
-                                    resources
-                                            .getColor(R.color.highlighted_text_material_dark))
-                }
-
-                v.visibility = View.VISIBLE
-            }
-            DragEvent.ACTION_DROP -> {
-                val dropTarget = v.findViewById(R.id.option) as TextView
-                val text = dropTarget.text
-                if (text != "") options.add(Optionmodel(dropTarget.text.toString(), 0, 0, 0, 0))
-                dropTarget.text = optionmodel!!.name
-                options.remove(optionmodel!!)
-                if (optionlistView != null) {
-                    optionlistView!!.adapter = OptionAdapter(options)
-
-                }
-                (v.findViewById(R.id.option) as TextView)
-                        .setBackgroundColor(
-                                resources
-                                        .getColor(R.color.highlighted_text_material_dark))
-                (v.findViewById(R.id.option) as TextView)
-                        .setTextColor(
-                                resources
-                                        .getColor(R.color.primary_text_default_material_light))
-                (v.findViewById(R.id.option) as TextView).text = (optionmodel!!.name)
-                (v.findViewById(R.id.option) as TextView).visibility = View.VISIBLE
-                if (options.size == 0) {
-                    submit!!.isEnabled = true
-                } else {
-                    submit!!.isEnabled = false
-                }
-
-            }
-            DragEvent.ACTION_DRAG_ENDED ->
-                v.invalidate()
-            else -> {
-            }
-        }
-        return true
-    }
 
 }
