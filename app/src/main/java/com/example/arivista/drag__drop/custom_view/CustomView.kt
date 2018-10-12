@@ -104,7 +104,7 @@ class CustomView : LinearLayout {
 
 
     @SuppressLint("InflateParams", "ClickableViewAccessibility")
-    fun setInput(value: ArrayList<Optionmodel>, demoimage: Int) {
+    fun setInput(value: ArrayList<Optionmodel>, demoimage: Int, imageWidth: Int,imageHeight: Int) {
         setValue(value)
         image!!.setBackgroundResource(demoimage)
         mainholder!!.viewTreeObserver.addOnGlobalLayoutListener(
@@ -189,8 +189,8 @@ class CustomView : LinearLayout {
 
                         val headerLayoutWidth = mainholder!!.getWidth()
                         val r: Double
-                        val a = 276.18400000000003
-                        val b = 874
+                        val a = imageWidth
+                        val b = imageHeight
                         val p: Double
                         r = (a / b).toDouble()
                         p = (height / a).toDouble()
