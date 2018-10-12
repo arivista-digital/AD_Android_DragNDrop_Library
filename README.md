@@ -39,7 +39,7 @@ allprojects {
 ```
 dependencies {
 
-     implementation 'com.github.arivista-digital:drag-drop:V1_0'
+     implementation 'com.github.arivista-digital:drag-drop:v-0.2'
      
 	}
  ```
@@ -61,18 +61,12 @@ dependencies {
 * Add the Image and drawable position
 ```
   val data=ArrayList<dragmodel>()
-        data.add(Optionmodel("14th Jan", 900, 300, 320, 80))
-        data.add(Optionmodel("15th Aug", 900, 100, 320, 80))
-        data.add(Optionmodel("25th Dec", 900, 500, 320, 80))
-        data.add(Optionmodel("12 May", 900, 1100, 320, 80))
-        data.add(Optionmodel("14th Feb", 900, 700, 320, 80))
-        data.add(Optionmodel("4 Aug", 900, 900, 320, 80))
-        customView.setInput(data)
-
-```
-* Set Image just call the fuctions on custom view
-```
-   customView.setImage(R.drawable.demoimage)
+        data.add(Optionmodel("12th Feb", 136, 72, 380, 35))
+        data.add(Optionmodel("15th Aug", 136, 108, 380, 35))
+        data.add(Optionmodel("25th Dec", 136, 144, 380, 35))
+        data.add(Optionmodel("12 May", 136, 181, 380, 35))
+        data.add(Optionmodel("14th Feb", 136, 218, 380, 35))
+        customView.setInput(data,R.drawable.xx)
 ```    
 ### Gif ###
 ![Alt Text](/app/screenshot/demo.gif)
